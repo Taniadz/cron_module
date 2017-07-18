@@ -70,7 +70,7 @@ if __name__ == "__main__":
     new1.create_cron("config.py")
 
 
-    new2 = Cron(user="tania", executable="python /home/tania/PycharmProjects/cron/writeDate.py")
+    new2 = Cron(user="tania", executable="python writeDate.py")
     new2.add_raw("* * * * *", config="config.py")
 
     new3 = Cron(user="tania", executable="executable.py arg1")
