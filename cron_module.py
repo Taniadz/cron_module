@@ -55,7 +55,7 @@ class Cron():
         if self.DOM != "*" and self.DOM > 31:
             raise ValueError("Interval in month must not exceed 31!")
 
-    def create_cron(self, config):
+    def create_cron(self):
         crontab_string = "{minute} {hour} {day_of_month} {month} {day_of_week} {user} {executable}".format(
             minute=self.minute,
             hour=self.hour,
@@ -71,7 +71,7 @@ class Cron():
 if __name__ == "__main__":
     new1 = Cron(user="tania", executable="executable.py")
     new1.monthly(minute=30, hour=3, day_of_month=3)
-    new1.create_cron("config.py")
+    new1.create_cron()
 
 
     new2 = Cron(user="tania", executable="python writeDate.py")
@@ -79,4 +79,4 @@ if __name__ == "__main__":
 
     new3 = Cron(user="tania", executable="executable.py arg1")
     new3.weekly()
-    new3.create_cron("config.py")
+    new3.create_cron()
