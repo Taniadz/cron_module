@@ -11,7 +11,7 @@ class Cron():
         self.MON = "*"  # Month field
         self.DOW = "*"  # day of week
 
-    def add_raw(self, raw_string, config):
+    def add_raw(self, raw_string):
         crontab_string = "{raw_string} {user} {executable}".format(
             raw_string=raw_string,
             user=self.user,
@@ -75,7 +75,7 @@ if __name__ == "__main__":
 
 
     new2 = Cron(user="tania", executable="python writeDate.py")
-    new2.add_raw("* * * * *", config="config.py")
+    new2.add_raw("* * * * *")
 
     new3 = Cron(user="tania", executable="executable.py arg1")
     new3.weekly()
