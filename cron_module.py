@@ -11,45 +11,51 @@ class Cron():
         self.MON = "*"  # Month field
         self.DOW = "*"  # day of week
 
-
     def add_raw(self, raw_string, config):
         crontab_string = "{raw_string} {user} {executable}".format(
             raw_string=raw_string,
             user=self.user,
             executable=self.executable
         )
-        with open(config, "a") as output_config:
-            output_config.write(crontab_string + '\n')
+        return crontab_string
 
     def hourly(self, minute=0):
         self.minute = minute
+        if self.minute > 59:
+            raise ValueError("Interval in minutes must not exceed 60!")
         self.hour = "*"
 
     def daily(self, minute=0, hour=0):
         self.minute = minute
-        self.hour = hour
-
-    def weekly(self, minute=0, hour=0, day_of_week = 1):
-        self.minute = minute
-        self.hour = hour
-        self.DOW = day_of_week
-
-    def monthly(self, minute=0, hour=0, day_of_month=1):
-        self.minute = minute
-        self.hour = hour
-        self.DOM = day_of_month
-
-    def create_cron(self, config):
         if self.minute > 59:
             raise ValueError("Interval in minutes must not exceed 60!")
+        self.hour = hour
         if self.hour != "*" and self.hour > 24:
             raise ValueError("Interval in hours must not exceed 24!")
 
+    def weekly(self, minute=0, hour=0, day_of_week = 1):
+        self.minute = minute
+        if self.minute > 59:
+            raise ValueError("Interval in minutes must not exceed 60!")
+        self.hour = hour
+        if self.hour != "*" and self.hour > 24:
+            raise ValueError("Interval in hours must not exceed 24!")
+        self.DOW = day_of_week
+        if self.DOW != "*" and self.DOW > 7:
+            raise ValueError("Interval in week must not exceed 7!")
+
+    def monthly(self, minute=0, hour=0, day_of_month=1):
+        self.minute = minute
+        if self.minute > 59:
+            raise ValueError("Interval in minutes must not exceed 60!")
+        self.hour = hour
+        if self.hour != "*" and self.hour > 24:
+            raise ValueError("Interval in hours must not exceed 24!")
+        self.DOM = day_of_month
         if self.DOM != "*" and self.DOM > 31:
             raise ValueError("Interval in month must not exceed 31!")
 
-        if self.DOW != "*" and self.DOW > 7:
-            raise ValueError("Interval in week must not exceed 7!")
+    def create_cron(self, config):
         crontab_string = "{minute} {hour} {day_of_month} {month} {day_of_week} {user} {executable}".format(
             minute=self.minute,
             hour=self.hour,
@@ -59,8 +65,6 @@ class Cron():
             user=self.user,
             executable=self.executable
         )
-        with open(config, "a") as output_config:
-            output_config.write(crontab_string + '\n')
         return crontab_string
 
 
