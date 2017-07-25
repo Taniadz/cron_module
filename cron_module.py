@@ -30,7 +30,7 @@ class Cron():
         if self.minute > 59:
             raise ValueError("Interval in minutes must not exceed 60!")
         self.hour = hour
-        if self.hour != "*" and self.hour > 24:
+        if self.hour > 24:
             raise ValueError("Interval in hours must not exceed 24!")
 
     def weekly(self, minute=0, hour=0, day_of_week = 1):
@@ -38,10 +38,10 @@ class Cron():
         if self.minute > 59:
             raise ValueError("Interval in minutes must not exceed 60!")
         self.hour = hour
-        if self.hour != "*" and self.hour > 24:
+        if self.hour > 24:
             raise ValueError("Interval in hours must not exceed 24!")
         self.DOW = day_of_week
-        if self.DOW != "*" and self.DOW > 7:
+        if self.DOW > 7:
             raise ValueError("Interval in week must not exceed 7!")
 
     def monthly(self, minute=0, hour=0, day_of_month=1):
@@ -49,10 +49,10 @@ class Cron():
         if self.minute > 59:
             raise ValueError("Interval in minutes must not exceed 60!")
         self.hour = hour
-        if self.hour != "*" and self.hour > 24:
+        if self.hour > 24:
             raise ValueError("Interval in hours must not exceed 24!")
         self.DOM = day_of_month
-        if self.DOM != "*" and self.DOM > 31:
+        if self.DOM > 31:
             raise ValueError("Interval in month must not exceed 31!")
 
     def create_cron(self):
@@ -78,5 +78,5 @@ if __name__ == "__main__":
     new2.add_raw("* * * * *")
 
     new3 = Cron(user="tania", executable="executable.py arg1")
-    new3.weekly()
+    new3.hourly()
     new3.create_cron()
