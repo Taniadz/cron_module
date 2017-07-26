@@ -1,0 +1,8 @@
+LICENSE.txt
+MANIFEST.in
+README.rst
+setup.cfg
+cron_module.egg-info/PKG-INFO
+cron_module.egg-info/SOURCES.txt
+cron_module.egg-info/dependency_links.txt
+cron_module.egg-info/top_level.txt
